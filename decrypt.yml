@@ -5,5 +5,18 @@
     - name: vault var
       shell: echo "123" |ansible-vault view --ask-vault-pass env_vars/vault.yml
       register: var
+    
+    - name:
+      set_fact:
+        decrypted_val
+      
+    - name:
+      set_fact:
+            - name:
+      set_fact:
+        decrypted_val: "{{ (var.stdout_lines | from_json) }}"
+        
+    - debug
+        msg: "{{ decrypted_val }}"
  
   
