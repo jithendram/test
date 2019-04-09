@@ -3,18 +3,7 @@
   hosts: localhost
   tasks:
     - name: vault var
-      command: echo "123" |ansible-vault view --ask-vault-pass env_vars/vault.yml
+      shell: echo "123" |ansible-vault view --ask-vault-pass env_vars/vault.yml
       register: var
  
-    - name: test encrypt_string
-      debug:
-        msg: "{{ var }}"
-        
-    - name: get decrypt_val
-      command: echo ' {{ var }}' | ansible-vault decrypt /dev/stdin --output=/dev/stderr > /dev/null && echo
-      register: result
-   
-    - name: test decrypt_string
-      debug:
-        msg: "{{ result }}"  
-      
+  
