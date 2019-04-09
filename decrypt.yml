@@ -3,7 +3,7 @@
   hosts: localhost
   tasks:
     - name: vault var
-      command: ansible-vault encrypt_string 123 --vault-password-file env_vars/vault.yml
+      command: echo "123" |ansible-vault view --ask-vault-pass env_vars/vault.yml
       register: var
  
     - name: test encrypt_string
