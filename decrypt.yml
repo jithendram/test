@@ -16,7 +16,7 @@
       set_fact:
         decrypted_val: "{{ (var.stdout_lines | from_json) }}"
         
-    - debug
+    - debug:
         msg: "{{ decrypted_val }}"
  
   
