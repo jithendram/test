@@ -12,11 +12,24 @@
       
     - name:
       set_fact:
-            - name:
-      set_fact:
         decrypted_val: "{{ (var.stdout_lines | to_json) }}"
         
     - debug:
-        msg: "{{ decrypted_val }}"
+        msg: "password is:--   {{ decrypted_val }}"
+        
+    - name: vault var
+      shell: echo "12345" |ansible-vault view --ask-vault-pass env_vars/token.yml
+      register: var
+    
+    - name:
+      set_fact:
+        decrypted_token
+           
+    - name:
+      set_fact:
+        decrypted_token: "{{ (var.stdout_lines | to_json) }}"
+        
+    - debug:
+        msg: "decrypted_token  is:--   {{ decrypted_token }}"
  
   
