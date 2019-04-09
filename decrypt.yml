@@ -1,20 +1,21 @@
+
 ---
 - name: test
   hosts: localhost
   tasks:
     - name: vault var
-      command: ansible-vault encrypt_string 123 --vault-password-file env_vars/vault.yml
+      shell: echo "123" |ansible-vault view --ask-vault-pass env_vars/vault.yml
       register: var
- 
-    - name: test encrypt_string
-      debug:
-        msg: "{{ var }}"
-        
-    - name: get decrypt_val
-      command: echo ' {{ var }}' | ansible-vault decrypt /dev/stdin --output=/dev/stderr > /dev/null && echo
-      register: result
-   
-    - name: test decrypt_string
-      debug:
-        msg: "{{ result }}"  
+    
+    - name:
+      set_fact:
+        decrypted_val
       
+    - name:
+      set_fact:
+            - name:
+      set_fact:
+        decrypted_val: "{{ (var.stdout_lines | from_json) }}"
+        
+    - debug:
+        msg: "{{ decrypted_val }}"
