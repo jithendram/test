@@ -2,8 +2,13 @@
 - name: test
   hosts: localhost
   tasks:
+  
+    - name: Set AWS KEY ID
+      set_fact: vault_id="{{ lookup('env','vault') }}"
+      delegate_to: 127.0.0.1
+    
     - name: vault var
-      shell: echo "123" |ansible-vault view --ask-vault-pass env_vars/vault.yml
+      shell: echo {{vault_id}} |ansible-vault view --ask-vault-pass env_vars/vault.yml
       register: var
     
     - name:
